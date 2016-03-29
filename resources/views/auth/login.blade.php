@@ -66,7 +66,7 @@
                 <div class="panel-heading">Fast login</div>
                 <div class="panel-body">
                     <p class="text-center">
-                        <a class="btn btn-lg btn-primary" href="{{url('login/fb')}}"><i class="icon-facebook"></i> Login with Facebook</a>
+                        <a class="btn btn-lg btn-primary" href="{{url('auth/facebook')}}"><i class="icon-facebook"></i> Login with Facebook</a>
                     </p>
                 </div>
             </div>
