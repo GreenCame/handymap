@@ -16,8 +16,10 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 
 # fix bug
 
-## 1) You have to install wampserver and follow the step in this website
+## 1)install
+You have to install wampserver
      https://sourceforge.net/projects/wampserver/files/WampServer%202/Wampserver%202.5/wampserver2.5-Apache-2.4.9-Mysql-5.6.17-php5.5.12-64b.exe/download
+and follow the step in this website:
      http://www.darwinbiler.com/how-to-install-laravel-on-wamp-for-beginners/
 
 
@@ -26,30 +28,32 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 Download github desktop
 Add the project :
     https://github.com/GreenCame/handymap
-My wamp is there: C:\wamp
-I put the project in "C:\wamp\frameworks\laravel\handymap" so if you change, change the path for next step.
+My wamp is there: `C:\wamp`
+I put the project in `C:\wamp\frameworks\laravel\handymap` so if you change, change the path for next step.
 
 
 
 ## 3) Make Database
-### go to localhost/phpmyadmin/
+### go to `localhost/phpmyadmin/`
 create a New-Database "softwareproject" (the name is very Important) database in UTF-8 generaly
 change a root password and put "root" password, in settings phpmyadmin
 
 ### configuration
-in the file C:\wamp\apps\phpmyadmin4.1.14\config.inc.php change that:
+in the file `C:\wamp\apps\phpmyadmin4.1.14\config.inc.php` change that:
 
         $cfg['Servers'][$i]['user'] = 'root';
         $cfg['Servers'][$i]['password'] = 'root';
 
 ### Open cmd in Admin
-command: -cd C:\wamp\frameworks\laravel\handymap
-php artisan make:migration
+command:
+    cd C:\wamp\frameworks\laravel\handymap
+then
+    php artisan make:migration
 
 
 
 ## 4) Hosts file
-in C:\Windows\System32\drivers\etc change the hosts file
+in `C:\Windows\System32\drivers\etc` change the hosts file
 add in the end the line :
 
         127.0.0.1       laravel.dev
@@ -76,7 +80,7 @@ Remove the # in line:      "LoadModule rewrite_module modules/mod_rewrite.so"   
 ## 6) Alias (maybe optionnal if you use laravel.dev)
 add the file "handymap.conf" in "C:\wamp\alias\" :
 
-        ```Alias /handymap "C:/wamp/frameworks/laravel/handymap/public"
+        Alias /handymap "C:/wamp/frameworks/laravel/handymap/public"
         <Directory "C:/wamp/frameworks/laravel/handymap/public">
         DirectoryIndex index.php
         Options Indexes FollowSymLinks MultiViews
@@ -85,7 +89,6 @@ add the file "handymap.conf" in "C:\wamp\alias\" :
             allow from all
             Require all granted
         </Directory>
-        ```
 
 
 
@@ -96,6 +99,6 @@ Go to laravel.dev, it should work
 Follow this link:
     http://curl.haxx.se/ca/cacert.pem
 Copy the entire page and save it in a: "cacert.pem" (in PHP\extras\ssl folder)
-Then in your "php.ini" file insert or edit the following line: curl.cainfo = "[pathtothisfile]\cacert.pem"
-In config/session.php change the line: 'domain' => 'laravel.dev',
+Then in your `php.ini` file insert or edit the following line: curl.cainfo = "[pathtothisfile]\cacert.pem"
+In config/session.php change the `line`: 'domain' => 'laravel.dev',
 Restart service
