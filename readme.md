@@ -48,7 +48,8 @@ in the file `C:\wamp\apps\phpmyadmin4.1.14\config.inc.php` change that:
 command:
     cd C:\wamp\frameworks\laravel\handymap
 then
-    php artisan make:migration
+    php artisan make:migration v1
+    php artisan migrate
 
 
 

@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/home', function () {
-    return view('map');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +26,9 @@ Route::get('/home', function () {
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
+    Route::get('/', function () {return view('welcome');});
     Route::get('auth/facebook', 'Auth\AuthFacebookController@redirectToProvider');
     Route::get('auth/facebook/callback', 'Auth\AuthFacebookController@handleProviderCallback');
-    Route::get('/home', 'HomeController@index');
+    Route::get('/settings', 'UserController@settings');
+    Route::get('/map', 'HomeController@index');
 });
