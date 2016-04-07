@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'firstname', 'lastname', 'pseudo', 'description', 'isActivateVoice', 'isActivateColor'
+        'email', 'firstname', 'lastname', 'pseudo', 'description', 'isActivateVoice', 'isActivateColor',  'password'
     ];
 
     /**
@@ -24,20 +24,4 @@ class User extends Authenticatable
         'password', 'remember_token', 'isAdmin'
     ];
 
-    public function isActivateVoice()
-    {
-        //
-    }
-
-    public
-    function setInformation()
-    {
-
-    }
-
-    public
-    function removeUser()
-    {
-
-    }
 }

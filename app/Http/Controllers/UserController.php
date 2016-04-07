@@ -18,8 +18,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function settings()
+    public function getSettings()
     {
         return view('user.settings');
+    }
+
+    public function postSettings()
+    {
+        return view('user.profil');
     }
 }
