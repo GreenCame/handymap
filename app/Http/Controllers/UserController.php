@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
+use Redirect;
 
 class UserController extends Controller
 {
@@ -25,6 +27,25 @@ class UserController extends Controller
 
     public function postSettings()
     {
-        return view('user.profil');
+        if (isset($_POST['isVoice'])) {
+            $isVoice = 1;
+        } else {
+            $isVoice = 0;
+        }
+        if (isset($_POST['isColor'])) {
+            $isColor = 1;
+        } else {
+            $isColor = 0;
+        }
+        //DB::table('users')->where('id', Auth::user()->id)->update(array('firstname' => $_POST['firstname']));
+        User::where('id', '=', Auth::user()->id)->update(array('firstname' => $_POST['firstname'], 'lastname' => $_POST['lastname'], 'isVoice' => $isVoice, 'isColor' => $isColor, 'description' => $_POST['description']));
+        return redirect("/profile");
     }
+
+    public function getProfile()
+    {
+        return view('user.profile');
+    }
+
+
 }

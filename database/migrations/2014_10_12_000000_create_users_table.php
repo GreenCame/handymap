@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('description');
             $table->string('password');
             $table->boolean('isAdmin')->default(false);
-            $table->boolean('isActivateVoice')->default(false);
-            $table->boolean('isActivateColor')->default(true);
+            $table->boolean('isVoice')->default(false);
+            $table->boolean('isColor')->default(true);
+            $table->integer('fontSize')->default(100);
             $table->rememberToken();
             $table->timestamps();
         });
