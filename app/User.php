@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'firstname', 'lastname', 'pseudo', 'description', 'isActivateVoice', 'isActivateColor',  'password'
+        'email', 'firstname', 'lastname', 'pseudo', 'description', 'isVoice', 'isColor',  'password'
     ];
 
     /**
@@ -23,5 +23,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'isAdmin'
     ];
+
+    public function getUserOrdyByDate($query)
+    {
+       $query->where('isAdmin','=',0)->orderBy('updated_at', 'desc');
+    }
 
 }

@@ -18,12 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('pseudo');
             $table->string('email')->unique();
-            $table->string('avatar')->default(null);
+            $table->string('avatar')->default("default.jpg");
             $table->string('description');
             $table->string('password');
             $table->boolean('isAdmin')->default(false);
-            $table->boolean('isActivateVoice')->default(false);
-            $table->boolean('isActivateColor')->default(true);
+            $table->boolean('isVoice')->default(false);
+            $table->boolean('isColor')->default(true);
+            $table->integer('fontSize')->default(100);
             $table->rememberToken();
             $table->timestamps();
         });
