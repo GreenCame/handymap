@@ -24,4 +24,9 @@ class User extends Authenticatable
         'password', 'remember_token', 'isAdmin'
     ];
 
+    public function getUserOrdyByDate($query)
+    {
+       $query->where('isAdmin','=',0)->orderBy('updated_at', 'desc');
+    }
+
 }

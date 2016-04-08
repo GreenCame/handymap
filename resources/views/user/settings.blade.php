@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Settings Account</div>
                     <div class="panel-body">
-                        <form class="form-vertical" role="form" method="POST" action="{{ url('/settings') }}">
+                        <form class="form-vertical" role="form" method="POST" enctype="multipart/form-data"
+                              action="{{ url('/settings') }}">
                             {!! csrf_field() !!}
 
                             <div class="row{{ $errors->has('firstname') ? ' has-error' : '' }}">
@@ -15,7 +16,11 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="firstname" autofocus
-                                           value="{{ Auth::user()->firstname }}">
+                                           @if(old('firstname'))
+                                           value="{{ old('firstname') }}">
+                                    @else
+                                        value="{{ Auth::user()->firstname }}">
+                                    @endif
 
                                     @if ($errors->has('firstname'))
                                         <span class="help-block">
@@ -30,8 +35,11 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="lastname"
-                                           value="{{ Auth::user()->lastname }}">
-
+                                           @if(old('lastname'))
+                                           value="{{ old('lastname') }}">
+                                    @else
+                                        value="{{ Auth::user()->lastname }}">
+                                    @endif
                                     @if ($errors->has('lastname'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('lastname') }}</strong>
@@ -40,19 +48,37 @@
                                 </div>
                             </div>
 
-                            <!--http://stackoverflow.com/questions/31757400/laravel-5-uploading-an-image-to-send-in-an-email-->
-                            <div class="form-group" style="margin-top: 30px">
-                                <label for="exampleInputFile">File input</label>
-                                <input type="file" id="exampleInputFile">
+                            <div class="form-group" style="margin-left: 80px;">
+                                <label for="image">avatar</label>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img height="150"
+                                             src="{{URL::asset('assets/images/avatars/'.Auth::user()->avatar)}}">
+                                    </div>
+                                    <div class="col-md-8" style="margin-top:60px">
+                                        <input accept="image/*" type="file" name="avatar">
+                                        @if ($errors->has('avatar'))
+                                                <span class=" help-block">
+                                        <strong>{{ $errors->first('avatar') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="Description">Description</label>
                                 @if(Auth::user()->description!=null)
-                                    <textarea class="form-control" rows="3"
-                                              name="description">{{Auth::user()->description}}</textarea>
+                                    <textarea class="form-control" rows="3" name="description">
+                                        @if(old('description'))
+                                            {{ old('description') }}
+                                        @else
+                                            {{Auth::user()->description}}
+                                        @endif
+                                    </textarea>
                                 @else
                                     <textarea class="form-control" rows="3" name="description"
-                                              placeholder="Something interesting..."></textarea>
+                                              placeholder="Something interesting...">{{ old('description') }}</textarea>
                                 @endif
                             </div>
 

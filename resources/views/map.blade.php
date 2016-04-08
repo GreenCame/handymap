@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('css')
+@section('link')
     <link rel="stylesheet" href="{{URL::asset('assets/css/map.css')}}">
 @endsection
 

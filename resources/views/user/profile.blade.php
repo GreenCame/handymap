@@ -7,8 +7,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4>
-                            <div class="glyphicon glyphicon-menu-right"></div>
-                            Account
+                            <div class="glyphicon glyphicon-menu-down small"></div>
+                            <img height="40" class="avatar" style="margin:0px 10px" src="{{URL::asset('assets/images/avatars/'.Auth::user()->avatar)}}">
+                            {{Auth::user()->pseudo }}
                         </h4>
                     </div>
                     <div class="panel-body">
@@ -46,10 +47,6 @@
                         <div class="col-sm-12 text-center small">
                             Options
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2 text-right"><label>Pseudo :</label></div>
-                        <div class="col-sm-10">{{Auth::user()->pseudo }}</div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2 text-right"><label>Email :</label></div>
