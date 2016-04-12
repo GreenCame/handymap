@@ -30,9 +30,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('auth/facebook', 'Auth\AuthFacebookController@redirectToProvider');
     Route::get('auth/facebook/callback', 'Auth\AuthFacebookController@handleProviderCallback');
 
-    Route::get('/profile', 'UserController@getProfile');
-    Route::post('/settings', 'UserController@postSettings');
-    Route::get('/settings', 'UserController@getSettings');
+    Route::get('/profile', 'UserController@getProfile')->middleware('auth');
+    Route::put('/settings', 'UserController@postSettings')->middleware('auth');
+    Route::get('/settings', 'UserController@getSettings')->middleware('auth');
 
-    Route::get('/map', 'HomeController@index');
+    Route::get('/map', 'HomeController@index')->middleware('auth');
+
+    Route::get('/console', 'AdminController@getConsole')->middleware('admin');
 });

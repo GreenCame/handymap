@@ -10,6 +10,7 @@
                         <form class="form-vertical" role="form" method="POST" enctype="multipart/form-data"
                               action="{{ url('/settings') }}">
                             {!! csrf_field() !!}
+                            <input value="put" type="hidden" name="_method">
 
                             <div class="row{{ $errors->has('firstname') ? ' has-error' : '' }}">
                                 <label class="col-md-3 text-right">FirstName</label>
