@@ -17,7 +17,7 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <link rel="stylesheet" href="{{URL::asset('assets/css/base.css')}}">
-    @yield('css')
+    @yield('link')
 </head>
 <body id="app-layout">
 <nav class="navbar navbar-default navbar-static-top">
@@ -57,13 +57,14 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
+                                <img height="25" class="avatar" style="margin-right: 10px" src="{{URL::asset('assets/images/avatars/'.Auth::user()->avatar)}}">
                                 {{ Auth::user()->pseudo }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-flag"></i> Contribution</a>
+                                <li><a href="{{ url('/points') }}"><i class="fa fa-btn fa-flag"></i> Contribution</a>
                                 </li>
-                                <li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cog"></i> Settings</a></li>
+                                <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-cog"></i> profile</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                             </ul>
                         </li>
