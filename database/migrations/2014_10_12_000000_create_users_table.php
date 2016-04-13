@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->default("default.jpg");
             $table->string('description');
             $table->string('password');
+            $table->integer('warnings')->default(0);
             $table->boolean('isAdmin')->default(false);
             $table->boolean('isVoice')->default(false);
             $table->boolean('isColor')->default(true);

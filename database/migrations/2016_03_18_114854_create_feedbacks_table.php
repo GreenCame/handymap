@@ -14,9 +14,9 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('comment');
-            $table->integer('idrefUser')->unsigned();
-            $table->foreign('idrefUser')
+            $table->text('comment');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
             $table->timestamps();

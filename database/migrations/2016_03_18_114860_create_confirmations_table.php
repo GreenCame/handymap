@@ -16,12 +16,12 @@ class CreateConfirmationsTable extends Migration
             $table->increments('id');
             $table->integer('rateValue');
             $table->string('description');
-            $table->integer('idrefUser')->unsigned();
-            $table->integer('idrefPoint')->unsigned();
-            $table->foreign('idrefUser')
+            $table->integer('user_id')->unsigned();
+            $table->integer('point_id')->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
-            $table->foreign('idrefPoint')
+            $table->foreign('point_id')
                 ->references('id')
                 ->on('points')
                 ->onDelete('cascade');

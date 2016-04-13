@@ -18,9 +18,9 @@ class CreatePointsTable extends Migration
             $table->string('description');
             $table->string('longitude');
             $table->string('latitude');
-            $table->integer('idrefUser')->unsigned();
-            $table->boolean('isActivateVoice');
-            $table->foreign('idrefUser')
+            $table->integer('user_id')->unsigned();
+            $table->boolean('isValidate');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 

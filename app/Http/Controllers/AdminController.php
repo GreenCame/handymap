@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\User;
+use App\Feedback;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -19,7 +21,10 @@ class AdminController extends Controller
      */
     public function getConsole()
     {
-        $data=array("users"=>DB::table('users')->where('isAdmin','=','0')->get());
+        $data=array(
+            "users"=>User::where('isAdmin','=','0')->get(),
+            "feedbacks"=>Feedback::all()
+                   );
         return view('admin.console', $data);
     }
 }

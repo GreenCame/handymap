@@ -24,9 +24,8 @@ class User extends Authenticatable
         'password', 'remember_token', 'isAdmin'
     ];
 
-    public function getUserOrdyByDate($query)
+    public function feedbacks()
     {
-       $query->where('isAdmin','=',0)->orderBy('updated_at', 'desc');
-    }
+       return $this->hasMany('App\Feedback');    }
 
 }
