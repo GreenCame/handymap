@@ -33,8 +33,16 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/profile', 'UserController@getProfile')->middleware('auth');
     Route::put('/settings', 'UserController@postSettings')->middleware('auth');
     Route::get('/settings', 'UserController@getSettings')->middleware('auth');
+    Route::get('/settings/{id}', 'AdminController@getSettingsUser')->middleware('admin');
 
     Route::get('/map', 'HomeController@index')->middleware('auth');
 
     Route::get('/console', 'AdminController@getConsole')->middleware('admin');
+    Route::get('/usersConsole','AdminController@getUsersConsole')->middleware('admin');
+    Route::get('/usersConsole/{id}','AdminController@deleteUsersConsole')->middleware('admin');
+    Route::get('/feedbacksConsole','AdminController@getFeedbacksConsole')->middleware('admin');
+    Route::get('/pointsValidateConsole','AdminController@getPointsValidateConsole')->middleware('admin');
+    Route::get('/pointsConsole','AdminController@getPointsConsole')->middleware('admin');
+    Route::get('/validatePointConsole/{id}','AdminController@putValidatePoint')->middleware('admin');
+    Route::get('/deletePointConsole/{id}','AdminController@deletePoint')->middleware('admin');
 });

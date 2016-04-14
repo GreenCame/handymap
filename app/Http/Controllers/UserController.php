@@ -27,6 +27,7 @@ class UserController extends Controller
         return view('user.settings');
     }
 
+
     public function postSettings(UpdateUserRequest $request)
     {
         if ($request->isVoice) {

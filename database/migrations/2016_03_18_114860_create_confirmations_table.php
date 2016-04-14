@@ -15,12 +15,14 @@ class CreateConfirmationsTable extends Migration
         Schema::create('confirmations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('rateValue');
+            $table->boolean('isConfirm');
             $table->string('description');
             $table->integer('user_id')->unsigned();
             $table->integer('point_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');
             $table->foreign('point_id')
                 ->references('id')
                 ->on('points')
@@ -36,6 +38,6 @@ class CreateConfirmationsTable extends Migration
      */
     public function down()
     {
-
+        Schema::drop('confirmations');
     }
 }

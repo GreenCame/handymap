@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'firstname', 'lastname', 'pseudo', 'description', 'isVoice', 'isColor',  'password'
+        'email', 'firstname', 'lastname', 'pseudo', 'description', 'isVoice', 'isColor',  'password', "id"
     ];
 
     /**
@@ -26,6 +26,17 @@ class User extends Authenticatable
 
     public function feedbacks()
     {
-       return $this->hasMany('App\Feedback');    }
+       return $this->hasMany('App\Feedback');
+    }
 
+    public function feedbacksRemove()
+    {
+        $this->hasMany('App\Feedback')->delete();
+    }
+
+    public function pointsRemove()
+    {
+        $this->hasMany('App\Point')->where("isValidate", "=", false)->delete();
+        $this->hasMany('App\Point')->where("isValidate", "=", true)->update(['user_id' => 1]);
+    }
 }
