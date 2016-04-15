@@ -28,6 +28,8 @@
                             <td>0</td>
                             <td><button class="btn btn-info btn-sm " onclick="location.href='/settings/{{$user->id}}';" >  <span class="glyphicon glyphicon-pencil"></span>  </button>
                                 @if($user->isBlocked)
+                                    <button class="btn btn-success btn-sm ">  <span class="glyphicon glyphicon-minus"></span>  </button>
+                                @else
                                     <button class="btn btn-warning btn-sm ">  <span class="glyphicon glyphicon-ban-circle"></span>  </button>
                                 @endif
                                 <button class="btn btn-danger btn-sm" onclick="removeUser({{$user->id}})"><span class="glyphicon glyphicon-remove"></span></button></td>
