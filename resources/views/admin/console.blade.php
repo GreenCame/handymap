@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('links')
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="{{URL::asset('assets/js/vue.js')}}"></script>
 @endsection
 
 @section('scripts')
@@ -28,8 +29,33 @@
                     </div>
                 </div>
 
-                <div id="action"> <!-- Points table -->
-                  </div>
+                <div id="action">
+                    </div>
+                <div id="app">
+                    <h1>@{{ points.length }}</h1>
+                      @{{ pointDescription }}
+                    <input type="text" v-model="pointDescription" @keyup.enter="createPoint">
+                    <p>
+                        <a v-bind:href="url">clic</a>
+                    </p>
+                    <h1 v-if="points.length">Validate</h1>
+                    <ul>
+                        <li v-for="point in points">
+                            @{{ point.description }}
+                            <input type="checkbox" v-model="point.isValidate">
+                            <button @click="removePoint(point)">Remove</button>
+                        </li>
+                    </ul>
+                    <h2 v-if="points.length">not validate</h2>
+                    <ul>
+                        <li v-repeat="point: points | filterBy false in points">
+                            @{{ point.description }}
+                            <input type="checkbox" v-model="point.isValidate">
+                            <button v-on:click="removePoint(point)">Remove</button>
+                        </li>
+                    </ul>
+                    <pre>@{{ $data | json }}</pre>
+                </div>
             </div>
         </div>
     </div>

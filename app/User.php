@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -37,6 +38,6 @@ class User extends Authenticatable
     public function pointsRemove()
     {
         $this->hasMany('App\Point')->where("isValidate", "=", false)->delete();
-        $this->hasMany('App\Point')->where("isValidate", "=", true)->update(['user_id' => 1]);
+        $this->hasMany('App\Point')->where("isValidate", "=", true)->update(['user_id' => Auth::user()->id ]);
     }
 }

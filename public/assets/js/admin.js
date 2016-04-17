@@ -94,3 +94,31 @@ function removeUser($id) {
         //$.get($url, function(){console.log("suppr")});
     }
 }
+
+
+//vue js
+new Vue({
+    el: '#app',
+    data: {
+        pointDescription: '',
+        url:'/settings',
+        points:[
+            {'id':"3",'rateValue':"3",'description':"This a big point",'longitude':"789.85",'latitude':"75.5",'user_id':"1",'isValidate':true},
+            {'id':"3",'rateValue':"3",'description':"This a big point",'longitude':"789.85",'latitude':"75.5",'user_id':"1",'isValidate':true},
+            {'id':"3",'rateValue':"3",'description':"This a big point",'longitude':"789.85",'latitude':"75.5",'user_id':"1",'isValidate':true}
+        ]
+    },
+    methods:{
+        createPoint: function(){
+            var pointDescription = this.pointDescription.trim();
+            if (pointDescription)
+            {
+                this.points.push({'id':"3",'rateValue':"3",'description': pointDescription,'longitude':"789.85",'latitude':"75.5",'user_id':"1",'isValidate':true})
+                this.pointDescription="";
+            }
+        },
+        removePoint: function(point){
+            this.points.$remove(point);
+        }
+    }
+});
