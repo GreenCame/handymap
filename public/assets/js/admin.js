@@ -97,7 +97,7 @@ function removeUser($id) {
 
 
 //vue js
-new Vue({
+/*new Vue({
     el: '#app',
     data: {
         pointDescription: '',
@@ -120,5 +120,64 @@ new Vue({
         removePoint: function(point){
             this.points.$remove(point);
         }
+    }
+});*/
+
+new Vue({
+    el: '#user_content',
+    data: {
+        users:[
+            {'id':"1",'pseudo':"Coucou",'firstname':"julien",'lastname':"Mouah",'feedbacks':"7",'email':"admin@gmail.com", "isBlocked": false},
+            {'id':"2",'pseudo':"LOL",'firstname':"Leo",'lastname':"sf",'feedbacks':"7",'email':"prout@gmail.com", "isBlocked": true},
+            {'id':"3",'pseudo':"Moi",'firstname':"Remi",'lastname':"qfvvxw",'feedbacks':"0",'email':"sqd@gmail.com", "isBlocked": false}
+        ]
+    },
+
+    computed: {
+      totalActiveUser: function() {
+          return this.users.filter(function(user)
+          {
+              return ! user.isBlocked;
+          }).length;
+      }
+    },
+
+    events: {
+        'removeUser': function(user) {
+            this.users.$remove(user);
+        }
+    },
+
+    components:{
+        user: {
+            template: '#user-template',
+            props:["user"],
+            replace: false,
+            methods: {
+                banUser: function(){
+                    if(this.user.isBlocked==true)
+                    {
+                        this.user.isBlocked=false;
+                    }
+                    else
+                    {
+                        this.user.isBlocked=true;
+                    }
+                },
+                removeUser: function(){
+                    this.$dispatch("removeUser", this.user);
+                }
+            },
+            computed:{
+                isBan: function(){
+                    return this.user.isBlocked;
+                }
+            }
+        }
+    },
+    create: function() {
+        $.getJSON("api/users", function (data) {
+            this.users = data;
+        });
     }
 });

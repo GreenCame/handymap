@@ -38,7 +38,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/map', 'HomeController@index')->middleware('auth');
 
     Route::get('/console', 'AdminController@getConsole')->middleware('admin');
-    Route::get('/usersConsole','AdminController@getUsersConsole')->middleware('admin');
+    Route::get('/api/users','AdminController@getUsers')->middleware('admin');
     Route::get('/usersConsole/{id}','AdminController@deleteUsersConsole')->middleware('admin');
     Route::get('/feedbacksConsole','AdminController@getFeedbacksConsole')->middleware('admin');
     Route::get('/pointsValidateConsole','AdminController@getPointsValidateConsole')->middleware('admin');

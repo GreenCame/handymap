@@ -31,12 +31,9 @@ class AdminController extends Controller
     {
         return view('admin.console');
     }
-    public function getUsersConsole()
+    public function getUsers()
     {
-        $data=array(
-            "users"=>User::where('isAdmin','=','0')->get()
-        );
-        return view('admin.ajaxConsole', $data);
+        return User::where('isAdmin','=','0')->get();
     }
     public function getFeedbacksConsole()
     {
