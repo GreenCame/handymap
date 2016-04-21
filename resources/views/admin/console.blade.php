@@ -20,7 +20,7 @@
                                                                    aria-hidden="true"></span> <b>Users</b></a>
                         <a href="#" id="feedbacks" class="list-group-item"> <span class="glyphicon glyphicon-chevron-right"
                                                                    aria-hidden="true"></span> <b>Feedbacks</b></a>
-                        <a href="#" id="points" class="list-group-item"> <span class="glyphicon glyphicon-chevron-right"
+                        <a href="#" id="pointsConfirm" class="list-group-item"> <span class="glyphicon glyphicon-chevron-right"
                                                                    aria-hidden="true"></span> New
                             <b>points</b></a>
                         <a href="#" id="pointsValidate" class="list-group-item"> <span class="glyphicon glyphicon-chevron-right"
@@ -28,8 +28,6 @@
                             <b>points</b></a>
                     </div>
                 </div>
-
-                <div id="action"></div>
 
                 <!--<div id="app">
                     <h1>@{{ points.length }}</h1>
@@ -57,7 +55,7 @@
                     <pre>@{{ $data | json }}</pre>
                 </div>-->
 
-                <div id="user_content">
+                <div id="users_content" style="display: none;">
                     <div class="panel panel-primary" v-if="users.length!=0">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-lg glyphicon-user"></span>
@@ -82,31 +80,156 @@
                                 </tr>
 
                             </table>
-                        <pre>@{{ $data | json }}</pre>
+                         </div>
+                    <div v-else>
+                        <div style="text-align: center;">
+                            Loading...
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="feedbacks_content" style="display: none;">
+                    <div class="panel panel-primary"  v-if="feedbacks.length!=0">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-lg glyphicon-inbox"></span>
+                             Feedbacks (@{{feedbacks.length}})
+                        </div>
+
+                        <table class="table">
+                            <tr>
+                                <th>Writer</th>
+                                <th>Feedback</th>
+                                <th>Answer</th>
+                            </tr>
+                            <tr v-for="feedback in feedbacks"
+                                is="feedback"
+                                :feedback="feedback"
+                                >
+                            </tr>
+                        </table>
                     </div>
                     <div v-else>
-                       <div style="text-align: center;">
-                           No user yet... :(
-                       </div>
+                        <div style="text-align: center;">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pointsConfirm_content" style="display: none;">
+                    <div class="panel panel-info"  v-if="points.length!=0">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-lg glyphicon-map-marker"></span>
+                             Points to confirm (@{{points.length}})
+                        </div>
+
+                            <table class="table">
+                                <tr>
+                                    <th>Author point</th>
+                                    <th>Rate</th>
+                                    <th>longitude</th>
+                                    <th>Latitude</th>
+                                    <th>Description</th>
+                                    <th>Confirmation</th>
+                                    <th>Change</th>
+                                </tr>
+
+                                <tr v-for="point in points"
+                                    is="waitingPoint"
+                                    :point="point"
+                                    :class="{'success': point.confirmed > 5 , 'danger': point.confirmed < -5}"
+                                        >
+                                </tr>
+                            </table>
+                    </div>
+                    <div v-else>
+                        <div style="text-align: center;">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+
+                <div id="validatePoints_content" style="display: none;">
+                    <div class="panel panel-success"  v-if="points.length!=0">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-lg glyphicon-map-marker"></span>
+                            Points to confirm (@{{points.length}})
+                        </div>
+
+                        <table class="table">
+                            <tr>
+                                <th>Author point</th>
+                                <th>Rate</th>
+                                <th>longitude</th>
+                                <th>Latitude</th>
+                                <th>Description</th>
+                                <th>Confirmation</th>
+                                <th>Change</th>
+                            </tr>
+
+                            <tr v-for="point in points"
+                                is="validatePoint"
+                                :point="point"
+                                    >
+                            </tr>
+                        </table>
+                    </div>
+                    <div v-else>
+                        <div style="text-align: center;">
+                            Loading...
+                        </div>
                     </div>
                 </div>
 
                 <template id="user-template">
                     <td v-if="isBan">@{{user.pseudo}}<b style="color:darkred"><span style="color:darkred" class="glyphicon glyphicon-ban-circle"></span> is ban</b></td>
                     <td v-else>@{{user.pseudo}}</td>
-                    <td>@{{user.lastname}}</td>
-                    <td>@{{user.firstname}}</td>
+                    <td>
+                        <span v-on:click="clicked"
+                              v-show="!isEditMode"
+                                >
+                            @{{user.lastname}}
+                        </span>
+                        <span v-show="isEditMode">
+                            <input type="text"
+                                   size="7"
+                                   v-model="user.lastname"
+                                   v-on:keyup.enter="clicked"
+                                    >
+                        </span>
+                    </td>
+                    <td>
+                        <span v-on:click="clicked"
+                              v-show="!isEditMode"
+                                >
+                            @{{user.firstname}}
+                        </span>
+                        <span v-show="isEditMode">
+                            <input type="text"
+                                   size="7"
+                                   v-model="user.firstname"
+                                   v-on:keyup.enter="clicked"
+                                    >
+                        </span>
+                    </td>
                     <td>@{{user.email}}</td>
-                    <td>@{{user.feedbacks}}</td>
-                    <td>@{{user.feedbacks}}</td>
+                    <td>
+                        <span v-if="user.feedbacks==0">-</span>
+                        <span v-if="user.feedbacks!=0">@{{user.feedbacks}}</span>
+                    </td>
+                    <td>
+                        <span v-if="user.points==0">-</span>
+                        <span v-if="user.points!=0">@{{user.points}}</span>
+                    </td>
                     <td>
                         <!--
                              Bouton Save
                          -->
                         <button class="btn btn-info btn-sm "
-                                onclick="location.href='/settings'"
+                                v-on:click="clicked"
                                 >
-                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="glyphicon glyphicon-floppy-disk" v-if="isEditMode"></span>
+                            <span class="glyphicon glyphicon-pencil" v-if="!isEditMode"></span>
                         </button>
 
                         <!--
@@ -133,6 +256,59 @@
                                 >
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
+                    </td>
+                </template>
+
+                <template id="feedback-template">
+                    <td>@{{feedback.writer}}</td>
+                    <td>@{{feedback.comment}}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm ">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            answer
+                        </button><br />
+
+                        <button class="btn btn-danger btn-sm pull-right"
+                                v-on:click="removeFeedback"
+                                >
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </template>
+
+                <template id="pointConfirm-template">
+                    <td>@{{point.writer}}</td>
+                    <td>@{{point.rate}}</td>
+                    <td>@{{point.longitude}}</td>
+                    <td>@{{point.latitude}}</td>
+                    <td>@{{point.description}}</td>
+                    <td>
+                        <span style="color:forestgreen" v-if="point.confirmed > 5">+@{{point.confirmed}}</span>
+                        <span style="color:darkred" v-if="point.confirmed < -5">@{{point.confirmed}}</span>
+                        <span style="color:darkslategrey" v-if="point.confirmed == 0">-</span>
+                        <span v-else>@{{point.confirmed}}</span>
+                    </td>
+                    <td><button class="btn btn-info btn-sm" v-on:click="/map/@{{ point.latitude }}/@{{ point.longitude }}" >  <span class="glyphicon glyphicon-eye-open"></span>   show it </button><br />
+                        <button class="btn btn-success btn-sm" v-on:click="confirmPoint">  <span class="glyphicon glyphicon-ok"></span> validate  </button><br />
+                        <button class="btn btn-danger btn-sm btn-remove"  v-on:click="removePoint"> <span class="glyphicon glyphicon-remove"></span> remove</button>
+                    </td>
+                </template>
+
+                <template id="validatePoint-template">
+                    <td>@{{point.writer}}</td>
+                    <td>@{{point.rate}}</td>
+                    <td>@{{point.longitude}}</td>
+                    <td>@{{point.latitude}}</td>
+                    <td>@{{point.description}}</td>
+                    <td>
+                        <span style="color:forestgreen" v-if="point.confirmed > 5">+@{{point.confirmed}}</span>
+                        <span style="color:darkred" v-if="point.confirmed < -5">@{{point.confirmed}}</span>
+                        <span v-if="5 >= point.confirmed >= -5">@{{point.confirmed}}</span>
+                        <span style="color:darkslategrey" v-if="point.confirmed == 0">-</span>
+                    </td>
+                    <td><button class="btn btn-info btn-sm" >  <span class="glyphicon glyphicon-eye-open"></span>   show it </button><br />
+                        <button class="btn btn-warning btn-sm" onClick="unValidatePoint">  <span class="glyphicon glyphicon-erase"></span> Unvalidate</button><br />
+                        <button class="btn btn-danger btn-sm btn-remove"  onClick="deletePoint"> <span class="glyphicon glyphicon-remove"></span> remove</button>
                     </td>
                 </template>
             </div>

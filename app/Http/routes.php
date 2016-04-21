@@ -38,11 +38,17 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/map', 'HomeController@index')->middleware('auth');
 
     Route::get('/console', 'AdminController@getConsole')->middleware('admin');
-    Route::get('/api/users','AdminController@getUsers')->middleware('admin');
-    Route::get('/usersConsole/{id}','AdminController@deleteUsersConsole')->middleware('admin');
-    Route::get('/feedbacksConsole','AdminController@getFeedbacksConsole')->middleware('admin');
-    Route::get('/pointsValidateConsole','AdminController@getPointsValidateConsole')->middleware('admin');
-    Route::get('/pointsConsole','AdminController@getPointsConsole')->middleware('admin');
-    Route::get('/validatePointConsole/{id}','AdminController@putValidatePoint')->middleware('admin');
-    Route::get('/deletePointConsole/{id}','AdminController@deletePoint')->middleware('admin');
+    //users api
+    Route::get('/api/users/get','AdminController@getUsers')->middleware('admin');
+    Route::get('/api/users/put/{id}','AdminController@putUser')->middleware('admin');
+    Route::get('/api/users/delete/{id}','AdminController@deleteUser')->middleware('admin');
+    //feedback api
+    Route::get('/api/feedbacks/get','AdminController@getFeedbacks')->middleware('admin');
+    Route::get('/api/feedbacks/put/{id}','AdminController@putFeedback')->middleware('admin');
+    Route::get('/api/feedbacks/delete/{id}','AdminController@deleteFeedback')->middleware('admin');
+    //Point api
+    Route::get('/api/waiting_points/get','AdminController@getWaitingPoints')->middleware('admin');
+    Route::get('/api/points/get','AdminController@getPoints')->middleware('admin');
+    Route::get('/api/points/put/{id}','AdminController@putPoint')->middleware('admin');
+    Route::get('/api/points/delete/{id}','AdminController@deletePoint')->middleware('admin');
 });
