@@ -5,6 +5,22 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
+                    @if(isset($feedbackSuccess))
+                        <div class="panel-heading" style="background-color: darkgreen !important; color: white;">
+                            <h3>
+                                <div class="glyphicon glyphicon-ok"></div>
+                                {{ $feedbackSuccess }}
+                            </h3>
+                        </div>
+                    @endif
+                    @if(isset($feedbackFail))
+                        <div class="panel-heading" style="background-color: darkred !important; color: white;">
+                            <h3>
+                                <div class="glyphicon glyphicon-not-ok"></div>
+                                {{ $feedbackFail }}
+                            </h3>
+                        </div>
+                    @endif
                     <div class="panel-heading">
                         <h4>
                             <div class="glyphicon glyphicon-menu-down small"></div>

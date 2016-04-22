@@ -92,7 +92,7 @@ class AdminController extends Controller
     public function getWaitingPoints()
     {
         return DB::table("points")
-            ->leftjoin('users', 'points.id', '=', 'users.id')
+            ->leftjoin('users', 'points.user_id', '=', 'users.id')
             ->leftjoin('confirmations', 'points.id', '=', 'confirmations.point_id')
             ->select('points.*', 'pseudo AS writer',  DB::raw('ifnull(SUM(case confirmations.isConfirm when 1 then 1 else -1 end),0) AS confirmed'))
             ->where("isValidate", "=", 0)
@@ -100,24 +100,10 @@ class AdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
     }
-    public function getPoints()
-    {
-        return DB::table("points")
-            ->leftjoin('users', 'points.id', '=', 'users.id')
-            ->leftjoin('confirmations', 'points.id', '=', 'confirmations.point_id')
-            ->select('points.*', 'pseudo AS writer',  DB::raw('ifnull(SUM(case confirmations.isConfirm when 1 then 1 else -1 end),0) AS confirmed'))
-            ->where("isValidate", "=", 1)
-            ->groupBy('points.id')
-            ->orderBy('created_at', 'desc')
-            ->get();
-    }
+
     public function putPoint($id)
     {
         Point::find($id)->update(['isValidate' => true]);
     }
 
-    public function deletePoint($id)
-    {
-        Point::find($id)->delete();
-    }
 }

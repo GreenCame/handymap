@@ -43,7 +43,7 @@
             <!-- Left Side Of Navbar -->
             @if(Auth::check())
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/map') }}">Map</a></li>
+                    <li><a href="{{ url('/addpoint') }}"><b class="addAPoint">Add a point</b></a></li>
                 </ul>
                 @endif
 
@@ -62,12 +62,17 @@
                                 {{ Auth::user()->pseudo }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/points') }}"><i class="fa fa-btn fa-flag"></i>
+                                <li><a href="{{ url('/contribution/'.Auth::user()->pseudo) }}"><i class="fa fa-btn fa-flag"></i>
                                         Contribution</a>
                                 </li>
                                 @if (Auth::user()->isAdmin)
                                     <li><a href="{{ url('/console') }}"><i class="fa fa-btn fa-dashboard"></i>
                                             Console</a>
+                                    </li>
+                                @endif
+                                @if (!Auth::user()->isAdmin)
+                                    <li><a href="{{ url('/feedback') }}"><i class="fa fa-btn fa-check"></i>
+                                            Feedback</a>
                                     </li>
                                 @endif
 

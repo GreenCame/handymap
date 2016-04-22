@@ -26,18 +26,23 @@ Route::get('/', function () {return view('welcome');});
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
-    Route::get('/', function () {return view('welcome');});
+    Route::get('/auth', function () {return redirect("/map");});
     Route::get('auth/facebook', 'Auth\AuthFacebookController@redirectToProvider');
     Route::get('auth/facebook/callback', 'Auth\AuthFacebookController@handleProviderCallback');
 
     Route::get('/profile', 'UserController@getProfile')->middleware('auth');
+    Route::get('/contribution/{pseudo}', 'UserController@showContribution')->middleware('auth');
     Route::put('/settings', 'UserController@postSettings')->middleware('auth');
     Route::get('/settings', 'UserController@getSettings')->middleware('auth');
     Route::get('/settings/{id}', 'AdminController@getSettingsUser')->middleware('admin');
 
     Route::get('/map', 'HomeController@index')->middleware('auth');
+    Route::get('/feedback', 'HomeController@feedback')->middleware('auth');
+    Route::post('/feedback', 'HomeController@postFeedback')->middleware('auth');
 
     Route::get('/console', 'AdminController@getConsole')->middleware('admin');
+
+    //API
     //users api
     Route::get('/api/users/get','AdminController@getUsers')->middleware('admin');
     Route::get('/api/users/put/{id}','AdminController@putUser')->middleware('admin');
@@ -48,7 +53,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/api/feedbacks/delete/{id}','AdminController@deleteFeedback')->middleware('admin');
     //Point api
     Route::get('/api/waiting_points/get','AdminController@getWaitingPoints')->middleware('admin');
-    Route::get('/api/points/get','AdminController@getPoints')->middleware('admin');
+    Route::get('/api/points/get','UserController@getPoints')->middleware('auth');
+    Route::get('/api/points/get/{user}','UserController@getContribution')->middleware('auth');
     Route::get('/api/points/put/{id}','AdminController@putPoint')->middleware('admin');
-    Route::get('/api/points/delete/{id}','AdminController@deletePoint')->middleware('admin');
+    Route::get('/api/points/delete/{id}','UserController@deletePoint')->middleware('auth');
 });

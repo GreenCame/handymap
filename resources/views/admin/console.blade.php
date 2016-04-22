@@ -126,7 +126,7 @@
                             <table class="table">
                                 <tr>
                                     <th>Author point</th>
-                                    <th>Rate</th>
+                                    <th>Difficulty</th>
                                     <th>longitude</th>
                                     <th>Latitude</th>
                                     <th>Description</th>
@@ -159,7 +159,7 @@
                         <table class="table">
                             <tr>
                                 <th>Author point</th>
-                                <th>Rate</th>
+                                <th>Difficulty</th>
                                 <th>longitude</th>
                                 <th>Latitude</th>
                                 <th>Description</th>
@@ -278,15 +278,15 @@
 
                 <template id="pointConfirm-template">
                     <td>@{{point.writer}}</td>
-                    <td>@{{point.rate}}</td>
+                    <td>@{{point.rateValue}}<span style="color: grey">/5</span></td>
                     <td>@{{point.longitude}}</td>
                     <td>@{{point.latitude}}</td>
                     <td>@{{point.description}}</td>
                     <td>
                         <span style="color:forestgreen" v-if="point.confirmed > 5">+@{{point.confirmed}}</span>
                         <span style="color:darkred" v-if="point.confirmed < -5">@{{point.confirmed}}</span>
+                        <span v-if="point.confirmed >= -5 && point.confirmed <= 5">@{{point.confirmed}}</span>
                         <span style="color:darkslategrey" v-if="point.confirmed == 0">-</span>
-                        <span v-else>@{{point.confirmed}}</span>
                     </td>
                     <td><button class="btn btn-info btn-sm" v-on:click="/map/@{{ point.latitude }}/@{{ point.longitude }}" >  <span class="glyphicon glyphicon-eye-open"></span>   show it </button><br />
                         <button class="btn btn-success btn-sm" v-on:click="confirmPoint">  <span class="glyphicon glyphicon-ok"></span> validate  </button><br />
@@ -296,14 +296,14 @@
 
                 <template id="validatePoint-template">
                     <td>@{{point.writer}}</td>
-                    <td>@{{point.rate}}</td>
+                    <td>@{{point.rateValue}}<span style="color: grey">/5</span></td>
                     <td>@{{point.longitude}}</td>
                     <td>@{{point.latitude}}</td>
                     <td>@{{point.description}}</td>
                     <td>
                         <span style="color:forestgreen" v-if="point.confirmed > 5">+@{{point.confirmed}}</span>
                         <span style="color:darkred" v-if="point.confirmed < -5">@{{point.confirmed}}</span>
-                        <span v-if="5 >= point.confirmed >= -5">@{{point.confirmed}}</span>
+                        <span v-if="point.confirmed >= -5 && point.confirmed <= 5">@{{point.confirmed}}</span>
                         <span style="color:darkslategrey" v-if="point.confirmed == 0">-</span>
                     </td>
                     <td><button class="btn btn-info btn-sm" >  <span class="glyphicon glyphicon-eye-open"></span>   show it </button><br />

@@ -6,6 +6,13 @@ body {
 {
     border-radius:50%;
 }
+.addAPoint{
+    font-size: 14px;
+    color: darkorange;
+}
+.disable{
+    background-color: lightgrey;
+}
 
 .rotateDownIn
 {
